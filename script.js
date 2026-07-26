@@ -611,11 +611,97 @@ document
   .getElementById("loadButton")
   ?.addEventListener("click", loadDraft);
 
-document
-  .getElementById("printButton")
-  ?.addEventListener("click", () => {
-    window.print();
+/* =========================================
+   Mobile and Desktop PDF Download
+========================================= */
+
+const printButton = document.getElementById("printButton");
+
+if (printButton) {
+  printButton.addEventListener("click", async () => {
+    const resumePages = document.querySelectorAll(".a4-sheet");
+
+    if (!resumePages.length) {
+      alert("PDFにする履歴書が見つかりません。");
+      return;
+    }
+
+    const originalButtonText = printButton.textContent;
+
+    printButton.disabled = true;
+    printButton.textContent = "PDFを作成中...";
+
+    try {
+      const { jsPDF } = window.jspdf;
+
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
+
+      for (let index = 0; index < resumePages.length; index++) {
+        const page = resumePages[index];
+
+        const canvas = await html2canvas(page, {
+          scale: 2,
+          backgroundColor: "#ffffff",
+          useCORS: true,
+          logging: false,
+          scrollX: 0,
+          scrollY: 0,
+
+          onclone: (clonedDocument) => {
+            const clonedPages =
+              clonedDocument.querySelectorAll(".a4-sheet");
+
+            clonedPages.forEach((clonedPage) => {
+              clonedPage.style.boxShadow = "none";
+              clonedPage.style.margin = "0";
+            });
+          }
+        });
+
+        const imageData = canvas.toDataURL(
+          "image/jpeg",
+          0.95
+        );
+
+        if (index > 0) {
+          pdf.addPage("a4", "portrait");
+        }
+
+        pdf.addImage(
+          imageData,
+          "JPEG",
+          0,
+          0,
+          210,
+          297
+        );
+      }
+
+      const nameInput = document
+        .getElementById("fullName")
+        ?.value.trim();
+
+      const safeName = nameInput
+        ? nameInput.replace(/[\\/:*?"<>|]/g, "_")
+        : "Resume";
+
+      pdf.save(`${safeName}_履歴書.pdf`);
+    } catch (error) {
+      console.error("PDF creation error:", error);
+
+      alert(
+        "PDFの作成に失敗しました。もう一度お試しください。"
+      );
+    } finally {
+      printButton.disabled = false;
+      printButton.textContent = originalButtonText;
+    }
   });
+}
 
 document
   .getElementById("clearButton")
