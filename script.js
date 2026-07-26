@@ -610,7 +610,6 @@ document
 document
   .getElementById("loadButton")
   ?.addEventListener("click", loadDraft);
-
 /* =========================================
    Mobile and Desktop PDF Download
 ========================================= */
@@ -626,58 +625,135 @@ if (printButton) {
       return;
     }
 
+    if (!window.html2canvas || !window.jspdf) {
+      alert("PDFライブラリを読み込めませんでした。");
+      return;
+    }
+
     const originalButtonText = printButton.textContent;
 
     printButton.disabled = true;
     printButton.textContent = "PDFを作成中...";
 
     try {
+      if (document.fonts?.ready) {
+        await document.fonts.ready;
+      }
+
       const { jsPDF } = window.jspdf;
 
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
-        format: "a4"
+        format: "a4",
+        compress: true
       });
 
       for (let index = 0; index < resumePages.length; index++) {
-        const page = resumePages[index];
+        const originalPage = resumePages[index];
 
-        const canvas = await html2canvas(page, {
+        /*
+          মোবাইলের responsive CSS এড়িয়ে PDF-এর জন্য
+          আলাদা desktop-width copy তৈরি করা হচ্ছে।
+        */
+
+        const captureWrapper = document.createElement("div");
+
+        captureWrapper.style.position = "fixed";
+        captureWrapper.style.left = "-10000px";
+        captureWrapper.style.top = "0";
+        captureWrapper.style.width = "210mm";
+        captureWrapper.style.background = "#ffffff";
+        captureWrapper.style.zIndex = "-9999";
+
+        const pageClone = originalPage.cloneNode(true);
+
+        pageClone.style.width = "210mm";
+        pageClone.style.minWidth = "210mm";
+        pageClone.style.height = "auto";
+        pageClone.style.minHeight = "297mm";
+        pageClone.style.margin = "0";
+        pageClone.style.padding = "10mm";
+        pageClone.style.overflow = "visible";
+        pageClone.style.boxShadow = "none";
+        pageClone.style.transform = "none";
+        pageClone.style.flex = "none";
+        pageClone.style.backgroundColor = "#ffffff";
+
+        captureWrapper.appendChild(pageClone);
+        document.body.appendChild(captureWrapper);
+
+        /*
+          ছবিগুলো পুরো load হওয়া পর্যন্ত অপেক্ষা
+        */
+
+        const images = [...pageClone.querySelectorAll("img")];
+
+        await Promise.all(
+          images.map((image) => {
+            if (image.complete) {
+              return Promise.resolve();
+            }
+
+            return new Promise((resolve) => {
+              image.onload = resolve;
+              image.onerror = resolve;
+            });
+          })
+        );
+
+        const canvas = await html2canvas(pageClone, {
           scale: 2,
           backgroundColor: "#ffffff",
           useCORS: true,
+          allowTaint: false,
           logging: false,
           scrollX: 0,
           scrollY: 0,
-
-          onclone: (clonedDocument) => {
-            const clonedPages =
-              clonedDocument.querySelectorAll(".a4-sheet");
-
-            clonedPages.forEach((clonedPage) => {
-              clonedPage.style.boxShadow = "none";
-              clonedPage.style.margin = "0";
-            });
-          }
+          windowWidth: 1200,
+          windowHeight: Math.max(
+            pageClone.scrollHeight + 100,
+            1600
+          )
         });
 
-        const imageData = canvas.toDataURL(
-          "image/jpeg",
-          0.95
-        );
+        captureWrapper.remove();
+
+        const imageData = canvas.toDataURL("image/jpeg", 0.96);
 
         if (index > 0) {
           pdf.addPage("a4", "portrait");
         }
 
+        const pageWidth = 210;
+        const pageHeight = 297;
+
+        const canvasRatio = canvas.height / canvas.width;
+
+        let imageWidth = pageWidth;
+        let imageHeight = imageWidth * canvasRatio;
+
+        /*
+          Content 297mm-এর চেয়ে সামান্য লম্বা হলে
+          পুরো content-কে A4-এর মধ্যে fit করা হবে।
+        */
+
+        if (imageHeight > pageHeight) {
+          imageHeight = pageHeight;
+          imageWidth = imageHeight / canvasRatio;
+        }
+
+        const xPosition = (pageWidth - imageWidth) / 2;
+
         pdf.addImage(
           imageData,
           "JPEG",
+          xPosition,
           0,
-          0,
-          210,
-          297
+          imageWidth,
+          imageHeight,
+          undefined,
+          "FAST"
         );
       }
 
@@ -694,9 +770,17 @@ if (printButton) {
       console.error("PDF creation error:", error);
 
       alert(
-        "PDFの作成に失敗しました。もう一度お試しください。"
+        "PDFの作成に失敗しました。ページを再読み込みして、もう一度お試しください。"
       );
     } finally {
+      /*
+        Error হলেও temporary clone থেকে গেলে মুছে যাবে।
+      */
+
+      document
+        .querySelectorAll('body > div[style*="-10000px"]')
+        .forEach((element) => element.remove());
+
       printButton.disabled = false;
       printButton.textContent = originalButtonText;
     }

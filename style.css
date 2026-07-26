@@ -1,3 +1,8 @@
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -480,11 +485,14 @@ td:nth-child(3) {
 
 /* skill box*/
 .skills-box {
-  margin-top: 4mm;
+  height: 34mm;
+  margin-top: 3mm;
 }
 
 .skills-box p {
-  min-height: 35mm;
+  height: calc(34mm - 7mm);
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* Motivation + Additional information */
@@ -493,8 +501,8 @@ td:nth-child(3) {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 62mm;
   gap: 3mm;
-  height: 82mm;
-  margin-top: 4mm;
+  height: 76mm;
+  margin-top: 3mm;
 }
 
 /* Common box */
@@ -535,11 +543,11 @@ td:nth-child(3) {
 /* Motivation */
 
 .motivation-box {
-  height: 82mm;
+  height: 76mm;
 }
 
 .motivation-box p {
-  height: calc(82mm - 7mm);
+  height: calc(76mm - 7mm);
   min-height: 0;
   overflow: hidden;
 }
@@ -549,12 +557,12 @@ td:nth-child(3) {
 .additional-info-box {
   display: grid;
   grid-template-rows:
+    12mm
+    13mm
     14mm
-    15mm
-    16mm
-    19mm
-    18mm;
-  height: 82mm;
+    18mm
+    19mm;
+  height: 76mm;
   border: 1px solid #333;
   overflow: hidden;
 }
@@ -591,12 +599,12 @@ td:nth-child(3) {
 /* Personal preferences */
 
 .preference-box {
-  height: 88mm;
-  margin-top: 4mm;
+  height: 70mm;
+  margin-top: 3mm;
 }
 
 .preference-box p {
-  height: calc(88mm - 9mm);
+  height: calc(70mm - 9mm);
   min-height: 0;
   overflow: hidden;
 }
@@ -817,6 +825,29 @@ td:nth-child(3) {
   .editor section {
     padding: 8px;
   }
+.a4-sheet {
+    font-size: 9px;
+    overflow: hidden;
+  }
+
+  .a4-sheet table {
+    font-size: 9px;
+  }
+
+  .a4-sheet th,
+  .a4-sheet td {
+    font-size: 9px;
+  }
+
+  .box h2 {
+    font-size: 8px;
+  }
+
+  .box p {
+    font-size: 9px;
+  }
+}
+
 
   /* Dynamic rows stay usable on narrow phones */
 
@@ -833,4 +864,3 @@ td:nth-child(3) {
     width: 100%;
     margin-top: 8px;
   }
-}
