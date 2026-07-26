@@ -1,0 +1,836 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #111;
+  background: #e9edf0;
+  font-family: Arial, "Yu Gothic", Meiryo, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+/* Editor */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 25px;
+  color: #fff;
+  background: #173e62;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+button {
+  padding: 8px 12px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  background: #1c5b8f;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.editor {
+  max-height: calc(100vh - 90px);
+  padding: 16px;
+  overflow-y: auto;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.editor h2 {
+  margin-top: 0;
+}
+
+.editor section {
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid #c5cdd5;
+  border-radius: 5px;
+}
+
+.editor h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+small {
+  display: block;
+  margin-top: 2px;
+  color: #65727e;
+  font-size: 11px;
+  font-weight: normal;
+}
+
+label {
+  display: block;
+  margin: 9px 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+.contact-address-choice {
+  margin: 12px 0;
+  padding: 10px;
+  border: 1px solid #c5cdd5;
+  border-radius: 4px;
+  background: #f7f9fb;
+}
+
+.field-title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 7px 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.radio-option input {
+  width: auto;
+  margin: 0;
+}
+
+.radio-option small {
+  display: inline;
+  margin: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.preview-contact-address {
+  align-items: flex-start !important;
+}
+
+.preview-contact-address > span {
+  flex: 0 0 22mm;
+}
+
+.preview-contact-address b {
+  flex: 1;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid #b7c1cb;
+  border-radius: 4px;
+}
+
+/* Commute time */
+
+.commute-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.commute-input input {
+  width: 70px;
+  margin-top: 0;
+}
+
+.commute-input span {
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.repeat-row {
+  display: grid;
+  grid-template-columns: 50px 45px 1fr 32px;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.repeat-row input {
+  min-width: 0;
+  margin: 0;
+}
+
+.repeat-row button {
+  padding: 0;
+  background: #ad3030;
+}
+
+/* Preview */
+
+.preview-area {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  overflow: auto;
+}
+
+.a4-sheet {
+  flex: 0 0 210mm;
+  width: 210mm;
+  height: 297mm;
+  padding: 10mm;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 10px #0003;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: 10px;
+}
+
+.title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 14mm;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: normal;
+  letter-spacing: 8px;
+  text-align: center;
+}
+
+.title span {
+  position: absolute;
+  right: 0;
+  bottom: 2mm;
+  font-size: 8px;
+}
+
+/* Personal Information */
+
+.personal-box {
+  display: grid;
+  grid-template-columns: 1fr 38mm;
+  height: 68mm;
+  border: 1px solid #333;
+}
+
+.personal-info {
+  display: grid;
+  grid-template-rows: 9mm 14mm 10mm 9mm 13mm 13mm;
+}
+
+.personal-info > div {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  border-bottom: 1px solid #333;
+  gap: 5px;
+  font-size: 10px;
+}
+
+.personal-info > div:last-child {
+  border-bottom: none;
+}
+
+.personal-info > div > span:first-child {
+  min-width: 22mm;
+}
+
+.personal-info b {
+  font-weight: normal;
+}
+
+/* Name row */
+
+.personal-info > .name-row {
+  display: grid !important;
+  grid-template-columns: 22mm minmax(0, 1fr);
+  align-items: stretch !important;
+  gap: 0 !important;
+  padding: 0 !important;
+}
+
+.personal-info > .name-row > span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 2mm;
+  border-right: 1px solid #333;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.personal-info > .name-row > b {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0 3mm;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+/* Birth row */
+
+.birth-row {
+  display: grid !important;
+  grid-template-columns: 18mm 1fr 16mm 10mm 10mm;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+.birth-row span,
+.birth-row b {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #333;
+  height: 10mm;
+  padding: 2px;
+}
+
+.birth-row b:last-child {
+  border-right: none;
+}
+
+/* Nationality row */
+
+.nationality-row {
+  display: grid !important;
+  grid-template-columns: 22mm minmax(0, 1fr);
+  gap: 0 !important;
+  padding: 0 !important;
+  align-items: stretch !important;
+}
+
+.nationality-row > span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding-left: 2mm;
+  border-right: 1px solid #333;
+}
+
+.nationality-row > b {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+  padding: 0 3mm;
+  font-weight: normal;
+}
+
+/* Photo */
+
+.photo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  border-left: 1px solid #333;
+  padding: 2mm;
+  height: 100%;
+  min-height: 0;
+}
+
+.photo-box span {
+  font-size: 8px;
+  margin-bottom: 4px;
+}
+
+.photo-box img {
+  width: 30mm;
+  height: 40mm;
+  object-fit: cover;
+  border: 1px solid #555;
+  align-self: center;
+}
+/* Phone & Email under photo */
+
+.photo-contact {
+  width: 100%;
+  min-width: 0;
+  margin-top: 2mm;
+  border-top: 1px solid #333;
+}
+
+.contact-item {
+  width: 100%;
+  min-width: 0;
+  padding: 1.2mm 1mm;
+  border-bottom: 1px solid #333;
+  font-size: 7px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.contact-item span {
+  display: block;
+  margin: 0 0 1px;
+  font-size: 7px;
+  font-weight: normal;
+}
+
+.contact-item b {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  font-size: 6.5px;
+  font-weight: normal;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+/* ===========================
+   CV Tables
+=========================== */
+
+table {
+  width: 100%;
+  margin-top: 3mm;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th,
+td {
+  height: 6.3mm;
+  padding: 1px 3px;
+  border: 1px solid #333;
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+th {
+  text-align: center;
+}
+
+th:first-child,
+td:first-child {
+  width: 12mm;
+  text-align: center;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 10mm;
+  text-align: center;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  text-align: left;
+}
+
+/* Education and work section headings */
+
+.history-heading td {
+  text-align: center !important;
+  font-weight: normal;
+}
+
+/* ===========================
+   Second Page
+=========================== */
+
+.second-page {
+  display: block;
+}
+
+/* Qualifications table */
+
+.second-page .qualification-table {
+  width: 100%;
+  margin-top: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* skill box*/
+.skills-box {
+  margin-top: 4mm;
+}
+
+.skills-box p {
+  min-height: 35mm;
+}
+
+/* Motivation + Additional information */
+
+.second-page-middle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 62mm;
+  gap: 3mm;
+  height: 82mm;
+  margin-top: 4mm;
+}
+
+/* Common box */
+
+.box {
+  width: 100%;
+  margin: 0;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+.box h2 {
+  min-height: 7mm;
+  margin: 0;
+  padding: 2px 3px;
+  border-bottom: 1px solid #333;
+  font-size: 9px;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+.box h2 small {
+  display: inline;
+  margin: 0;
+  color: #111;
+  font-size: 7px;
+}
+
+.box p {
+  margin: 0;
+  padding: 4px;
+  font-size: 10px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Motivation */
+
+.motivation-box {
+  height: 82mm;
+}
+
+.motivation-box p {
+  height: calc(82mm - 7mm);
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Right-side information */
+
+.additional-info-box {
+  display: grid;
+  grid-template-rows:
+    14mm
+    15mm
+    16mm
+    19mm
+    18mm;
+  height: 82mm;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+.additional-info-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 2mm 2.5mm;
+  border-bottom: 1px solid #333;
+}
+
+.additional-info-row:last-child {
+  border-bottom: 0;
+}
+
+.additional-info-row > span {
+  display: block;
+  font-size: 9px;
+  font-weight: normal;
+}
+
+.additional-info-row > b {
+  display: block;
+  min-width: 0;
+  font-size: 10px;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+/* Personal preferences */
+
+.preference-box {
+  height: 88mm;
+  margin-top: 4mm;
+}
+
+.preference-box p {
+  height: calc(88mm - 9mm);
+  min-height: 0;
+  overflow: hidden;
+}
+/* Print */
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .app {
+    display: block;
+    padding: 0;
+  }
+
+  .preview-area {
+    display: block;
+    overflow: visible;
+  }
+
+  .a4-sheet {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    box-shadow: none;
+    break-after: page;
+  }
+
+  .a4-sheet:last-child {
+    break-after: auto;
+  }
+}
+
+/* =========================================
+   Mobile Responsive
+========================================= */
+
+@media screen and (max-width: 768px) {
+
+  body {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  /* Top bar */
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .topbar h1 {
+    font-size: 16px;
+  }
+
+  .topbar button {
+    padding: 8px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  /* Form and preview become vertical */
+
+  .app {
+    display: block;
+    padding: 10px;
+  }
+
+  /* Editor */
+
+  .editor {
+    width: 100%;
+    max-height: none;
+    margin-bottom: 16px;
+    padding: 12px;
+    overflow: visible;
+    border-radius: 6px;
+  }
+
+  .editor h2 {
+    font-size: 20px;
+  }
+
+  .editor section {
+    margin: 12px 0;
+    padding: 10px;
+  }
+
+  .editor h3 {
+    font-size: 15px;
+  }
+
+  label {
+    margin: 10px 0;
+    font-size: 13px;
+  }
+
+  input,
+  textarea,
+  select {
+    min-height: 44px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+
+  button {
+    min-height: 42px;
+  }
+
+  /* Education, work and qualification rows */
+
+  .repeat-row {
+    grid-template-columns: 62px 55px minmax(0, 1fr) 38px;
+    gap: 5px;
+  }
+
+  .repeat-row input {
+    min-width: 0;
+    padding: 7px 5px;
+    font-size: 14px;
+  }
+
+  .repeat-row button {
+    min-height: 44px;
+  }
+
+  /* Commute hour and minute */
+
+  .commute-input {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .commute-input input {
+    width: 100%;
+  }
+
+  /* Radio options */
+
+  .radio-option {
+    min-height: 40px;
+  }
+
+  .radio-option input {
+    width: 20px;
+    min-height: 20px;
+    margin: 0;
+  }
+
+  /* Resume preview scroll container */
+
+  .preview-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 16px;
+    padding: 8px 0 16px;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /*
+    A4 layout remains unchanged.
+    It scrolls horizontally instead of becoming distorted.
+  */
+
+  .a4-sheet {
+    flex: 0 0 210mm;
+    width: 210mm;
+    min-width: 210mm;
+    height: 297mm;
+    margin: 0;
+    transform-origin: top left;
+  }
+}
+
+/*different style mobile view*/
+@media screen and (max-width: 480px) {
+
+  .topbar {
+    align-items: center;
+  }
+
+  .topbar h1 {
+    font-size: 14px;
+  }
+
+  .topbar button {
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+
+  .app {
+    padding: 7px;
+  }
+
+  .editor {
+    padding: 9px;
+  }
+
+  .editor section {
+    padding: 8px;
+  }
+
+  /* Dynamic rows stay usable on narrow phones */
+
+  .repeat-row {
+    grid-template-columns: 54px 48px minmax(105px, 1fr) 36px;
+    overflow-x: auto;
+  }
+
+  /* Save, load and clear buttons */
+
+  #saveButton,
+  #loadButton,
+  #clearButton {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
