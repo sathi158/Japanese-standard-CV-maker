@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>履歴書メーカー</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="topbar no-print">
+    <h1>履歴書メーカー</h1>
+    <button id="printButton">PDFをダウンロード</button>
+  </header>
+
+  <main class="app">
+    <aside class="editor no-print">
+      <h2>履歴書を入力</h2>
+
+      <section>
+        <h3>基本情報 <small>Basic information</small></h3>
+
+        <label>提出日 <small>Submission date</small>
+          <input id="submissionDate" type="date">
+        </label>
+
+        <label>氏名 <small>Full name</small>
+          <input id="fullName" type="text">
+        </label>
+
+        <label>ふりがな <small>Japanese phonetic reading</small>
+          <input id="furigana" type="text">
+        </label>
+
+        <label>生年月日 <small>Date of birth</small>
+          <input id="birthDate" type="date">
+        </label>
+
+        <label>性別 <small>Gender</small>
+          <select id="gender">
+            <option value=""></option>
+            <option value="男">男 / Male</option>
+            <option value="女">女 / Female</option>
+          </select>
+        </label>
+
+        <label>
+          国籍
+          <small>Nationality</small>
+          <input id="nationality" type="text" placeholder="例：バングラデシュ">
+        </label>
+
+        <label>郵便番号 <small>Postal code</small>
+          <input id="postalCode" type="text">
+        </label>
+
+        <label>現住所 <small>Current address</small>
+  <input id="address" type="text">
+</label>
+
+<div class="contact-address-choice">
+  <span class="field-title">
+    連絡先
+    <small>Contact address</small>
+  </span>
+
+  <label class="radio-option">
+    <input
+      type="radio"
+      name="contactAddressType"
+      id="sameAddress"
+      value="same"
+      checked
+    >
+    同上
+    <small>Same as current address</small>
+  </label>
+
+  <label class="radio-option">
+    <input
+      type="radio"
+      name="contactAddressType"
+      id="differentAddress"
+      value="different"
+    >
+    別の住所
+    <small>Use a different address</small>
+  </label>
+</div>
+
+<div id="contactAddressGroup" class="hidden">
+  <label>
+    連絡先住所
+    <small>Contact address</small>
+    <input id="contactAddress" type="text">
+  </label>
+</div>
+
+<label>電話番号 <small>Phone number</small>
+  <input id="phone" type="text">
+</label>
+
+        <label>メールアドレス <small>Email address</small>
+          <input id="email" type="email">
+        </label>
+
+        <label>証明写真 <small>Passport-style photo</small>
+          <input id="photoInput" type="file" accept="image/*">
+        </label>
+      </section>
+
+      <section>
+        <h3>学歴 <small>Education history</small></h3>
+        <div id="educationEditor"></div>
+        <button id="addEducation" type="button">＋ Education row</button>
+      </section>
+
+      <section>
+        <h3>職歴 <small>Work history</small></h3>
+        <div id="workEditor"></div>
+        <button id="addWork" type="button">＋ Work history row</button>
+      </section>
+
+      <section>
+        <h3>免許・資格 <small>Licences and qualifications</small></h3>
+        <div id="qualificationEditor"></div>
+        <button id="addQualification" type="button">＋ Qualification row</button>
+      </section>
+
+      <section>
+  <h3>追加情報 <small>Additional information</small></h3>
+
+  <label>
+  通勤時間
+  <small>Commute time</small>
+
+  <div class="commute-input">
+    <input id="commuteHour" type="number" min="0" max="23" placeholder="0">
+    <span>時間</span>
+    <input id="commuteMinute" type="number" min="0" max="59" placeholder="0">
+
+    <span>分</span>
+  </div>
+</label>
+
+  <div class="editor-radio-group">
+    <span class="field-title">
+      配偶者
+      <small>Marital status / Spouse</small>
+    </span>
+
+    <label class="radio-option">
+      <input type="radio" name="spouseStatus" value="有">
+      有 / Yes
+    </label>
+
+    <label class="radio-option">
+      <input type="radio" name="spouseStatus" value="無" checked>
+      無 / No
+    </label>
+  </div>
+
+  <label>
+    扶養家族数（配偶者を除く）
+    <small>Number of dependents, excluding spouse</small>
+    <input id="dependents" type="number" min="0" value="0">
+  </label>
+
+  <label>
+    在留資格
+    <small>Visa status</small>
+    <input
+      id="visaStatus"
+      type="text"
+      placeholder="例：技術・人文知識・国際業務"
+    >
+  </label>
+
+  <label>
+    日本語レベル
+    <small>Japanese language level</small>
+    <select id="japaneseLevel">
+      <option value=""></option>
+      <option value="JLPT N1">JLPT N1</option>
+      <option value="JLPT N2">JLPT N2</option>
+      <option value="JLPT N3">JLPT N3</option>
+      <option value="JLPT N4">JLPT N4</option>
+      <option value="JLPT N5">JLPT N5</option>
+      <option value="BJT J1+">BJT J1+</option>
+      <option value="BJT J1">BJT J1</option>
+      <option value="BJT J2">BJT J2</option>
+      <option value="日常会話レベル">日常会話レベル</option>
+      <option value="ビジネスレベル">ビジネスレベル</option>
+    </select>
+  </label>
+</section>
+
+<section>
+  <h3>スキル・特技 <small>Skills and strengths</small></h3>
+  <textarea id="skills" rows="6"></textarea>
+</section>
+
+      <section>
+        <h3>志望動機・自己PR <small>Motivation and self-promotion</small></h3>
+        <textarea id="motivation" rows="7"></textarea>
+      </section>
+
+      <section>
+        <h3>本人希望記入欄 <small>Requests and preferences</small></h3>
+        <textarea id="preferences" rows="5"></textarea>
+      </section>
+
+      <button id="saveButton" type="button">Save draft</button>
+      <button id="loadButton" type="button">Load draft</button>
+      <button id="clearButton" type="button">Clear</button>
+    </aside>
+
+    <section class="preview-area">
+      <article class="a4-sheet">
+        <div class="title">
+          <h1>履 歴 書</h1>
+          <span id="previewSubmissionDate"></span>
+        </div>
+<div class="personal-box">
+  <div class="personal-info">
+
+    <div>ふりがな <b id="previewFurigana"></b></div>
+
+    <div class="name-row">
+      <span>氏 名 </span>
+      <b id="previewName"></b>
+    </div>
+
+    <div class="birth-row">
+      <span>生年月日</span>
+      <b id="previewBirthDate"></b>
+
+      <span>満 <b id="previewAge"></b>歳</span>
+
+      <span>性別</span>
+      <b id="previewGender"></b>
+    </div>
+
+    <div class="nationality-row">
+      <span>国籍</span>
+      <b id="previewNationality"></b>
+    </div>
+
+    <div>
+      現住所  <b id="previewAddress"></b>
+    </div>
+
+    <div class="preview-contact-address">
+      <span>連絡先</span>
+      <b id="previewContactAddress">同上</b>
+    </div>
+  </div>
+
+  <div class="photo-box">
+
+    <span>写真貼付</span>
+
+    <img id="previewPhoto" alt="Photo">
+
+    <div class="photo-contact">
+
+      <div class="contact-item">
+        <span>電話</span>
+        <b id="previewPhone"></b>
+      </div>
+
+      <div class="contact-item">
+        <span>メール</span>
+        <b id="previewEmail"></b>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>年</th>
+              <th>月</th>
+              <th>学 歴 ・ 職 歴</th>
+            </tr>
+          </thead>
+          <tbody id="previewHistory"></tbody>
+        </table>
+      </article>
+
+      <article class="a4-sheet second-page">
+
+  <table class="qualification-table">
+    <thead>
+      <tr>
+        <th>年</th>
+        <th>月</th>
+        <th>免 許 ・ 資 格</th>
+      </tr>
+    </thead>
+
+    <tbody id="previewQualifications"></tbody>
+  </table>
+
+  <div class="second-page-middle">
+
+    <section class="box motivation-box">
+      <h2>
+        志望動機、特技、好きな学科、アピールポイントなど
+      </h2>
+      <p id="previewMotivation"></p >
+    </section>
+
+    <section class="additional-info-box">
+
+      <div class="additional-info-row">
+        <span>通勤時間</span>
+        <b id="previewCommuteTime">約 0 時間 0 分</b>
+      </div>
+
+      <div class="additional-info-row">
+        <span>配偶者</span>
+        <b id="previewSpouseStatus">無</b>
+      </div>
+
+      <div class="additional-info-row">
+        <span>扶養家族（配偶者を除く）</span>
+        <b>
+          <span id="previewDependents">0</span> 人
+        </b>
+      </div>
+
+      <div class="additional-info-row">
+        <span>在留資格</span>
+        <b id="previewVisaStatus"></b>
+      </div>
+
+      <div class="additional-info-row">
+        <span>日本語レベル</span>
+        <b id="previewJapaneseLevel"></b>
+      </div>
+
+    </section>
+  </div>
+
+  <section class="box skills-box">
+  <h2>スキル・特技</h2>
+  <p id="previewSkills"></p >
+</section>
+
+  <section class="box preference-box">
+    <h2>
+      本人希望記入欄
+      <small>
+        特に給料・職種・勤務時間・勤務地・その他についての希望などがあれば記入
+      </small>
+    </h2>
+
+    <p id="previewPreferences"></p >
+  </section>
+
+</article>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
