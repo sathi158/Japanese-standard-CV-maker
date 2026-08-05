@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sathi158.github.io/Japanese-standard-CV-maker/sitemap.xml
